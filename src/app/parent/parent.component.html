@@ -1,0 +1,7 @@
+<div class="parent1">
+    <p><b>PARENT COMPONENT</b></p>    
+    <input type="number" [(ngModel)]="mytask">
+    <p>{{mpin}}</p>
+    <app-child [task]="mytask" (pin)="enter($event)"></app-child>
+</div>
+

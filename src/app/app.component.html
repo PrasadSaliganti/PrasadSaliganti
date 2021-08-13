@@ -1,0 +1,135 @@
+<!-- <p>{{name}}</p>
+<p>{{age}}</p>
+<input type="number" [(ngModel)]="age">
+<p>{{phone}}</p>
+<button (click)="submit()">submit</button>
+
+<div *ngFor="let name of names"> 
+    <p>{{name}}</p>
+</div> -->
+<router-outlet></router-outlet>
+<table class="table table-bordered">
+    <thead class=" table table-dark">
+        <tr>
+            <th>NAME</th>
+            <th>AGE</th>
+            <th>ADDRESS</th>
+            <th>PHONE</th>
+            <th>ACTIONS</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let student of students; let i=index;">
+            <td>{{student.name}}</td>
+            <td>{{student.age}}</td>
+            <td>{{student.address}}</td>
+            <td>{{student.phone}}</td>
+            <td> 
+                <button (click)="edit(i)" class="btn btn-success margin-right"> Edit</button>
+                <button (click)="delete(i)" class="btn btn-danger"> Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<form [formGroup]="myForm">
+
+    <div class="form-group">
+        <label>NAME:</label>
+        <input type="text" formControlName="name" class="form-control" id="name" placeholder="enter name" name="name">    
+      <div class="help-block" *ngIf="myForm.controls.name.errors && myForm.controls.name.touched" class="alert alert-danger">
+        <div *ngIf="myForm.controls.name.errors?.required">Name is required </div>
+        <div *ngIf="myForm.controls.name.errors?.maxlength"> name must be atleast 15 charectors long.</div>
+        <div *ngIf="myForm.controls.name.errors?.minlength"> name must be atleast 2 charectors long.</div>      
+      </div>
+    </div>
+    
+    <div class="form-group">
+       <label>AGE:</label>      
+       <input type="number" formControlName="age" class="form-control" id="age" placeholder="Enter age"  ngModel name="age">
+    </div>
+
+      <div class="form-group">
+        <label>ADDRESS:</label>
+        <input type="text"  formControlName="address" class="form-control" id="address" placeholder="Enter address" name="address">
+        <div class="help-block" *ngIf="myForm.controls.address.errors && myForm.controls.address.touched" class="alert alert-danger">
+          <div *ngIf="myForm.controls.address.errors?.required">Address is required</div>
+          <div *ngIf="myForm.controls.address.errors?.maxlength"> name must be atleast 15 charectors long.</div>
+        <div *ngIf="myForm.controls.address.errors?.minlength"> name must be atleast 2 charectors long.</div>    
+        </div>
+      </div>
+    
+      <div class="form-group">
+        <label>PHONE:</label>
+        <input type="text"  formControlName="phone" class="form-control" id="phone" placeholder="phone number" name="phone">      
+      </div>
+
+      <div class="form-group">
+        <label>EMAIL:</label>
+        <input type="text"  formControlName="email" class="form-control" id="email" placeholder="enter email" name="email"> 
+        <div *ngIf="myForm.controls.email.errors?.required" class="alert alert-danger">Email is required</div>     
+        <div *ngIf="myForm.controls.email.errors?.email" class="alert alert-danger">enter valid email.</div>
+      </div>
+
+    <div class="form-group form-check">
+        <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" name="remember"> Remember me
+        </label>
+    </div>
+        <button (click)="submit()" class="btn btn-primary">Submit</button>
+        <br>
+        <br>
+        <br>
+
+              <h4><b>ADD NEW CANDIDATE DETAILS:</b></h4>
+              <div formArrayName="details" *ngFor="let detail of myForm.controls.details.value; let i=index">        
+                <div [formGroupName]="i">
+                  <div class="form-group">
+                    <div>
+                      <label>NAME:</label>
+                      <input type="text" formControlName="name" class="form-control" id="name1" placeholder="enter name" name="name">
+                        <p *ngIf="getFormArrayGroup(i)?.controls?.name?.errors?.required">Name is Required</p>
+                        </div>
+                     <div>
+                        <label>ADDRESS:</label>
+                        <input type="text" formControlName="address" class="form-control" id="address1" placeholder="enter address" name="address">    
+                     </div>
+                    <div>
+                       <label>COLLEGE:</label>
+                       <input type="text" formControlName="college" class="form-control" id="college1" placeholder="enter college" name="college">
+                       <button (click)="remove(i)" class="btn btn-danger">Remove</button>    
+                   </div>
+              </div>
+              </div>
+        </div>
+        <br>
+        <button (click)="addDetails()" class="btn btn-success"> Add</button><br><br><br>
+
+        <nav class="navbar navbar-expand-sm bg-light">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a routerLink="student" href="" class="btn btn-secondary">STUDENT</a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="course" href="" class="btn btn-success">COURSE</a>
+            </li>            
+          </ul>
+        </nav>              
+        
+        <button (click)='navigate("student")'> STUDENTS</button>
+
+    </form>
+   
+    <app-parent></app-parent>
+    <br>
+    <app-major></app-major>
+    <br>
+    <app-mini></app-mini>
+
+   
+
+   
+
+
+
